@@ -1,6 +1,7 @@
 package com.example.newspringsecurity.Service.ServiceInterface;
 
 import com.example.newspringsecurity.Model.User;
+import com.example.newspringsecurity.Model.VerificationToken;
 import com.example.newspringsecurity.Resgistration.RegistrationRequest;
 
 import java.util.List;
@@ -12,4 +13,6 @@ public interface UserService {
     Optional<User> findByEmail(String email);
 
     void saveUserVerificationToken(User theUser, String verificationToken);
+
+    String validateToken(String theToken);
 }
