@@ -50,4 +50,11 @@ public class UserServiceImpl implements UserService {
         verificationTokenRepository.save(verificationToken);
 
     }
+
+    @Override
+    public String validateToken(String theToken) {
+        VerificationToken token = verificationTokenRepository.findByToken(theToken);
+        return null;
+    }
+
 }
