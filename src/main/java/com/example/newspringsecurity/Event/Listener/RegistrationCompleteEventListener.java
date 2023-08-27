@@ -2,6 +2,8 @@ package com.example.newspringsecurity.Event.Listener;
 
 import com.example.newspringsecurity.Event.RegistrationCompleteEvent;
 import com.example.newspringsecurity.Model.User;
+import com.example.newspringsecurity.Model.VerificationToken;
+import com.example.newspringsecurity.Service.ServiceImpl.UserServiceImpl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationListener;
@@ -13,6 +15,7 @@ import java.util.UUID;
 @RequiredArgsConstructor
 @Slf4j
 public class RegistrationCompleteEventListener implements ApplicationListener<RegistrationCompleteEvent> {
+    private final UserServiceImpl userServiceImpl;
     @Override
     public void onApplicationEvent(RegistrationCompleteEvent event) {
         //1. Get the newly registered user
@@ -20,7 +23,7 @@ public class RegistrationCompleteEventListener implements ApplicationListener<Re
         //2. Create a verification token for the user
         String verificationToken = UUID.randomUUID().toString();
         //3. Save the verification token for the user
-
+        userServiceImpl.saveUserVerificationToken(theUser, verificationToken);
         //4. Build the Url to be sent to the user
         String url = event.getApplicationUrl()+"/register/verifyEmail?token="+verificationToken;
         //5. Send the email

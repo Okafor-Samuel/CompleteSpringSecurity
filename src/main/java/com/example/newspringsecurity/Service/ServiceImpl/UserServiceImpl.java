@@ -2,7 +2,9 @@ package com.example.newspringsecurity.Service.ServiceImpl;
 
 import com.example.newspringsecurity.Exception.UserAlreadyExistsException;
 import com.example.newspringsecurity.Model.User;
+import com.example.newspringsecurity.Model.VerificationToken;
 import com.example.newspringsecurity.Repository.UserRepository;
+import com.example.newspringsecurity.Repository.VerificationTokenRepository;
 import com.example.newspringsecurity.Resgistration.RegistrationRequest;
 import com.example.newspringsecurity.Service.ServiceInterface.UserService;
 import lombok.RequiredArgsConstructor;
@@ -16,6 +18,7 @@ import java.util.Optional;
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final VerificationTokenRepository verificationTokenRepository;
     @Override
     public List<User> getUsers() {
         return userRepository.findAll();
@@ -39,5 +42,12 @@ public class UserServiceImpl implements UserService {
     @Override
     public Optional<User> findByEmail(String email) {
         return userRepository.findByEmail(email);
+    }
+
+    @Override
+    public void saveUserVerificationToken(User theUser, String token) {
+        var verificationToken = new VerificationToken(token, theUser);
+        verificationTokenRepository.save(verificationToken);
+
     }
 }
