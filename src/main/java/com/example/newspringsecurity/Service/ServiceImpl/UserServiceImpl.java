@@ -64,6 +64,8 @@ public class UserServiceImpl implements UserService {
             verificationTokenRepository.delete(token);
             return "Token already expired";
         }
+        user.setEnabled(true);
+        userRepository.save(user);
         return null;
     }
 
