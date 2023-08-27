@@ -34,7 +34,9 @@ public class RegistrationController {
             return "This account has already been verified, please login";
         }
         String verificationResult = userServiceImpl.validateToken(token);
-        return null;
+        if(verificationResult.equalsIgnoreCase("Valid")){
+            return "Email verified successfully, Please login";
+        }return "Invalid verification token";
     }
 
     public String applicationUrl(HttpServletRequest request) {
