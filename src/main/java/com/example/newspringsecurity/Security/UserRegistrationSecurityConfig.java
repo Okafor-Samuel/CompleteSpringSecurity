@@ -28,7 +28,7 @@ public class UserRegistrationSecurityConfig {
                 .permitAll()
                 .and()
                 .authorizeHttpRequests()
-                .requestMatchers("")
+                .requestMatchers("/api/v1/users")
                 .hasAnyRole("USER", "ADMIN")
                 .and()
                 .formLogin()
