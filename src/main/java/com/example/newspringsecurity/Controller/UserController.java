@@ -19,4 +19,6 @@ public class UserController {
     public List<User> getUsers(){
         return userServiceImpl.getUsers();
     }
+
+    
 }
